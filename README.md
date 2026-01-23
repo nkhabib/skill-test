@@ -35,7 +35,7 @@ Implement RESTful routes for a `Post` model using Laravel 12. Posts support **dr
 ### 4-1. `posts.index`
 
 - Retrieve a paginated list of active posts (20 per page)
-- Include the author (user) data for each post
+- Include the user (author) data for each post
 - Exclude draft and scheduled posts
 - Return a JSON response in a format suitable for passing to views
 
