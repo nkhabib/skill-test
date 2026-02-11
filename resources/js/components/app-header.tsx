@@ -21,6 +21,11 @@ const mainNavItems: NavItem[] = [
         href: '/dashboard',
         icon: LayoutGrid,
     },
+    {
+        title: 'My Post',
+        href: '/post',
+        icon: LayoutGrid,
+    },
 ];
 
 const rightNavItems: NavItem[] = [
