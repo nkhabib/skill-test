@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StorePostRequest;
 use App\Models\Post;
 use Illuminate\Http\JsonResponse;
-use Inertia\Inertia;
 
 class PostController extends Controller
 {
@@ -20,9 +19,11 @@ class PostController extends Controller
             ->latest('published_at')->active()
             ->paginate(20);
 
-        return Inertia::render('posts', [
-            'posts' => $posts,
-        ]);
+        return response()->json([
+            'status' => true,
+            'code' => 200,
+            'data' => $posts,
+        ], 200);
     }
 
     /**
@@ -41,7 +42,12 @@ class PostController extends Controller
         // 4-3: Validate & Create
         $post = $request->user()->posts()->create($request->validated());
 
-        return response()->json($post, 201);
+        return response()->json([
+            'status' => true,
+            'code' => 201,
+            'message' => 'Post Created',
+            'data' => $post,
+        ], 201);
     }
 
     /**
@@ -53,7 +59,11 @@ class PostController extends Controller
             abort(404);
         }
 
-        return response()->json($post->load('user'));
+        return response()->json([
+            'status' => true,
+            'code' => 200,
+            'data' => $post->load('user'),
+        ], 200);
     }
 
     /**
@@ -74,7 +84,13 @@ class PostController extends Controller
         $this->authorize('update', $post);
         $post->update($request->validated());
 
-        return response()->json($post);
+        return response()->json([
+            'status' => true,
+            'code' => 200,
+            'message' => 'Post Updated',
+            'data' => $post,
+            200,
+        ]);
     }
 
     /**
@@ -85,6 +101,10 @@ class PostController extends Controller
         $this->authorize('delete', $post);
         $post->delete();
 
-        return response()->json(null, 204);
+        return response()->json([
+            'status' => true,
+            'code' => 204,
+            'message' => 'Post Deleted',
+        ], 204);
     }
 }
